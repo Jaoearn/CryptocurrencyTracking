@@ -1,69 +1,153 @@
-﻿@model IEnumerable<CryptocurrencyTracking.Models.Coins>;
-@{
-    ViewData["Title"] = "Trade";
-}
-
-<div class="row">
-    <div class="leftcolumn">
-        <div class="card">
-            <h1 class="display-4">Today's Cryptocurrency Prices </h1>
-            <p>
-                The global crypto market cap is $1.18T, a 2.52% decrease over the last day.
-            </p>
-        </div>
-        <div class="card">
-            <div class="wrapper">
-                <table class="table">
-                    <tr>
-                        <td>Name</td>
-                        <td></td>
-                        <td>Price</td>
-                        <td>Change</td>
-                        <td>Market cap</td>
-                        <td>Watch</td>
-                    </tr>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                <img src=@Html.DisplayFor(modelItem => item.iconUrl ) width=35 height=35 />
-                            </td>
-                            <td>
-                                <h5><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.name)</a></h5>
-                                <h6><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.symbol)</a></h6>
-                            </td>
-                            <td>
-                                <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.price)</a>
-                            </td>
-                            <td>
-                                <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.change)%</a>
-                            </td>
-                            <td>
-                                <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.marketCap)</a>
-                            </td>
-                        </tr>
-                    }
-                </table>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CryptocurrencyTracking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Index">CryptocurrencyTracking</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Trade">Trade</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @model IEnumerable<CryptocurrencyTracking.Models.Coins>;
+            @{
+                ViewData["Title"] = "Trade";
+            }
+
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h1 class="display-4">Cryptocurrency Prices by Market Cap </h1>
+                    </div>
+                    <div class="card">
+                        <div class="wrapper">
+                            <table class="table">
+                                <tr>
+                                    <td>Name</td>
+                                    <td></td>
+                                    <td>Price</td>
+                                    <td>Change</td>
+                                    <td>Market cap</td>
+                                    <td>watch</td>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src=@Html.DisplayFor(modelItem => item.iconUrl ) width=35 height=35 />
+                                        </td>
+                                        <td>
+                                            <h5><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.name)</a></h5>
+                                            <h6><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.symbol)</a></h6>
+                                        </td>
+                                        <td>
+                                            <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.price)</a>
+                                        </td>
+                                        <td>
+                                            <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.change)%</a>
+                                        </td>
+                                        <td>
+                                            <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.marketCap)</a>
+                                        </td>
+                                        <td>
+                                        <label class="add-fav">
+                                            <input type="checkbox" value=@Html.DisplayFor(modelItem => item.name) />
+                                        </label>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .leftcolumn {
+                    float: left;
+                    width: 100%;
+                }
+
+                .card {
+                    background-color: white;
+                    padding: 20px;
+                    margin-top: 20px;
+                }
+
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+
+                .add-fav {
+                    padding: 6px;
+                }
+            </style>
+
+            @*<script type="text/javascript">
+            saveOnClick = function (el) {
+                if (paymentData == null) {
+                    alert("โปรดเลือกช่องทางการชำระเงิน");
+                    return
+                }
+
+                let formData = {
+                    reference_order: $("#inputReference_order").val(),
+                    payment_method_id: paymentData,
+                    status: el
+                }
+                var settings = {
+                    "async": true,
+                    "url": 'http://localhost/paymentSuccess',
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/json",
+                        "cache-control": "no-cache"
+                    },
+                    "data": JSON.stringify(formData)
+                }
+                $.ajax(settings).done(function (response) {
+                    alert("คลิ๊ก Ok เพื่อดำเนินการต่อ");
+                    window.location = ("http://localhost/paymentSuccess" + "?invoice_no_mock=" + $("#inputReference_order").val() + "&status=success");
+                }).fail(function (response, status) {
+                    alert("โปรดติดต่อผู้ดูแลระบบ");
+                });
+            }
+        </script>*@
+
+            @*How to add to favourites, remove and view using c# html*@
+        </main>
     </div>
-</div>
 
-<style>
-    .leftcolumn {
-        float: left;
-        width: 100%;
-    }
-
-    .card {
-        background-color: white;
-        padding: 20px;
-        margin-top: 20px;
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

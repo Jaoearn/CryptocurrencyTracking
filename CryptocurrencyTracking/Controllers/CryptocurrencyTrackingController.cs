@@ -56,11 +56,18 @@ namespace CryptocurrencyTracking.Controllers
         }
         [HttpGet]
         [Route("/api/stats")]
-        public async Task<JsonResult> GetS()
+        public async Task<JsonResult> GetStats()
         {
             string url = "https://api.coinranking.com/v2/stats";
             var responseString = await url.GetAsync().ReceiveJson<StatsModel>();
             return Json(responseString.data);
+        }
+        [HttpPost]
+        [Route("/api/login")]
+        public bool LoginForm([FromBody] LoginModel loginModel)
+        {
+            if (loginModel.username == "asdf" && loginModel.password == "1234") return true;
+            else return false;
         }
     }
 }

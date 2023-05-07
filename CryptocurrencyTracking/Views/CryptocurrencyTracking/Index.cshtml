@@ -1,94 +1,139 @@
-﻿@{
-
-    IEnumerable<BestCoins> bestCoins = ViewData["BestCoins"] as IEnumerable<BestCoins>;
-    IEnumerable<NewestCoins> newestCoins = ViewData["NewestCoins"] as IEnumerable<NewestCoins>;
-}
-
-
-@{
-    ViewData["Title"] = "Cryptocurrency Tracking";
-}
-
-
-<div class="row">
-    <div class="leftcolumn">
-        <div class="card">
-            <h2>Best Coins!</h2>
-        </div>
-        <div class="card">
-            <h2>Newest Coins!</h2>
-        </div>
-    </div>
-    <div class="rightcolumn">
-        <div class="card">
-            <h3>Best Coins!</h3>
-            <div class="wrapper">
-                <table class="table">
-                    @foreach (BestCoins bestCoins1 in bestCoins)
-                    {
-                        <tr>
-                            <td>
-                                <img src=@Html.DisplayFor(modelItem => bestCoins1.iconUrl ) width=45 height=45 />
-                            </td>
-                            <td>
-                                <h6><a href=@Html.DisplayFor(modelItem => bestCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => bestCoins1.name)</a></h6>
-                                <h6><a href=@Html.DisplayFor(modelItem => bestCoins1.coinrankingUrl)>(@Html.DisplayFor(modelItem => bestCoins1.symbol))</a></h6>
-                            </td>
-                        </tr>
-                    }
-                </table>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]  CryptocurrencyTracking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Index">CryptocurrencyTracking</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Trade">Trade</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CryptocurrencyTracking" asp-action="Login">Logout</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <h3>Newest Coins!</h3>
-            <div class="wrapper">
-                <table class="table">
-                    @foreach (NewestCoins newestCoins1 in newestCoins)
-                    {
-                        <tr>
-                            <td>
-                                <img src=@Html.DisplayFor(modelItem => newestCoins1.iconUrl ) width=45 height=45 />
-                            </td>
-                            <td>
-                                <h6><a href=@Html.DisplayFor(modelItem => newestCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => newestCoins1.name)</a></h6>
-                                <h6><a href=@Html.DisplayFor(modelItem => newestCoins1.coinrankingUrl)>(@Html.DisplayFor(modelItem => newestCoins1.symbol))</a></h6>
-                            </td>
-                        </tr>
-                    }
-                </table>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @{
+
+                IEnumerable<BestCoins> bestCoins = ViewData["BestCoins"] as IEnumerable<BestCoins>;
+                IEnumerable<NewestCoins> newestCoins = ViewData["NewestCoins"] as IEnumerable<NewestCoins>;
+            }
+
+
+            @{
+                ViewData["Title"] = "Cryptocurrency Tracking";
+            }
+
+
+            <div class="row">
+                <div class="leftcolumn">
+                    <div class="card">
+                        <h2>Best Coins!</h2>
+                    </div>
+                    <div class="card">
+                        <h2>Newest Coins!</h2>
+                    </div>
+                </div>
+                <div class="rightcolumn">
+                    <div class="card">
+                        <h3>Best Coins!</h3>
+                        <div class="wrapper">
+                            <table class="table">
+                                @foreach (BestCoins bestCoins1 in bestCoins)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src=@Html.DisplayFor(modelItem => bestCoins1.iconUrl ) width=45 height=45 />
+                                        </td>
+                                        <td>
+                                            <h6><a href=@Html.DisplayFor(modelItem => bestCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => bestCoins1.name)</a></h6>
+                                            <h6><a href=@Html.DisplayFor(modelItem => bestCoins1.coinrankingUrl)>(@Html.DisplayFor(modelItem => bestCoins1.symbol))</a></h6>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Newest Coins!</h3>
+                        <div class="wrapper">
+                            <table class="table">
+                                @foreach (NewestCoins newestCoins1 in newestCoins)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img src=@Html.DisplayFor(modelItem => newestCoins1.iconUrl ) width=45 height=45 />
+                                        </td>
+                                        <td>
+                                            <h6><a href=@Html.DisplayFor(modelItem => newestCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => newestCoins1.name)</a></h6>
+                                            <h6><a href=@Html.DisplayFor(modelItem => newestCoins1.coinrankingUrl)>(@Html.DisplayFor(modelItem => newestCoins1.symbol))</a></h6>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <style>
+
+                .leftcolumn {
+                    float: left;
+                    width: 75%;
+                }
+
+                .rightcolumn {
+                    float: left;
+                    width: 25%;
+                    padding-left: 20px;
+                }
+
+                .fakeimg {
+                    background-color: #aaa;
+                    width: 100%;
+                    padding: 20px;
+                }
+
+                .card {
+                    background-color: white;
+                    padding: 20px;
+                    margin-top: 20px;
+                }
+
+                .row:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+            </style>
+        </main>
     </div>
-</div>
 
-<style>
-
-    .leftcolumn {
-        float: left;
-        width: 75%;
-    }
-
-    .rightcolumn {
-        float: left;
-        width: 25%;
-        padding-left: 20px;
-    }
-
-    .fakeimg {
-        background-color: #aaa;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .card {
-        background-color: white;
-        padding: 20px;
-        margin-top: 20px;
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-</style>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
