@@ -61,23 +61,29 @@
                                     <tr>
                                         <td>
                                             <img src=@Html.DisplayFor(modelItem => item.iconUrl ) width=35 height=35 />
+                                            <input hidden  id="iconUrl" value=@Html.DisplayFor(modelItem => item.iconUrl )>
                                         </td>
                                         <td>
                                             <h5><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.name)</a></h5>
+                                            <input hidden id="name" value=@Html.DisplayFor(modelItem => item.name )>
                                             <h6><a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.symbol)</a></h6>
+                                            <input hidden id="symbol" value=@Html.DisplayFor(modelItem => item.symbol )>
                                         </td>
                                         <td>
-                                            <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.price)</a>
+                                            <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl) >$@Html.DisplayFor(modelItem => item.price)</a>
+                                            <input hidden id="price" value=@Html.DisplayFor(modelItem => item.price )>
                                         </td>
                                         <td>
                                             <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>@Html.DisplayFor(modelItem => item.change)%</a>
+                                            <input hidden id="change" value=@Html.DisplayFor(modelItem => item.change )>
                                         </td>
                                         <td>
                                             <a href=@Html.DisplayFor(modelItem => item.coinrankingUrl)>$@Html.DisplayFor(modelItem => item.marketCap)</a>
+                                            <input hidden id="marketCap" value=@Html.DisplayFor(modelItem => item.marketCap )>
                                         </td>
                                         <td>
                                         <label class="add-fav">
-                                            <input type="checkbox" value=@Html.DisplayFor(modelItem => item.name) />
+                                            <input type="checkbox" id="addFavourites" onclick="checkOnClick()"/>
                                         </label>
                                         </td>
                                     </tr>
@@ -111,36 +117,20 @@
                 }
             </style>
 
-            @*<script type="text/javascript">
-            saveOnClick = function (el) {
-                if (paymentData == null) {
-                    alert("โปรดเลือกช่องทางการชำระเงิน");
-                    return
-                }
+            <script type="text/javascript">
+            checkOnClick = function (el) {
 
                 let formData = {
-                    reference_order: $("#inputReference_order").val(),
-                    payment_method_id: paymentData,
-                    status: el
+                    name: $("#name").val(),
+                    symbol: $("#symbol").val(),
+                    price: $("#price").val(),
+                    change: $("#change").val(),
+                    marketCap: $("#marketCap").val(),
+                    iconUrl: $("#iconUrl").val()
                 }
-                var settings = {
-                    "async": true,
-                    "url": 'http://localhost/paymentSuccess',
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/json",
-                        "cache-control": "no-cache"
-                    },
-                    "data": JSON.stringify(formData)
-                }
-                $.ajax(settings).done(function (response) {
-                    alert("คลิ๊ก Ok เพื่อดำเนินการต่อ");
-                    window.location = ("http://localhost/paymentSuccess" + "?invoice_no_mock=" + $("#inputReference_order").val() + "&status=success");
-                }).fail(function (response, status) {
-                    alert("โปรดติดต่อผู้ดูแลระบบ");
-                });
+                console.log(formData);
             }
-        </script>*@
+        </script>
 
             @*How to add to favourites, remove and view using c# html*@
         </main>

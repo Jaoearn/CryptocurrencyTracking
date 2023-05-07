@@ -11,9 +11,7 @@
 <body>
     <div class="container">
         <h2 style="text-align:center">Login</h2>
-        <form>
             <div class="row">
-
                 <div class="col">
 
                     <input type="text" id="username" placeholder="Username" required>
@@ -21,7 +19,6 @@
                     <input type="submit" value="Login" onclick="submitOnClick(this.val)">
                 </div>
             </div>
-        </form>
     </div>
 
     <style>
@@ -83,13 +80,10 @@
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 if (response) {
-                    alert("คลิ๊ก Ok เพื่อดำเนินการต่อ");
                     window.location = ("https://localhost:5001/CryptocurrencyTracking/Index");
-                    console.log("yyyyyyy");
                 }
                 else {
                     alert("ติดต่อผู้ดูแลระบบ");
-                    console.log("nnnnn");
                 }
             });
         }
