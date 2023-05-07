@@ -36,7 +36,7 @@ namespace CryptocurrencyTracking
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/CryptocurrencyTracking/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -51,7 +51,7 @@ namespace CryptocurrencyTracking
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=CryptocurrencyTracking}/{action=Index}/{id?}");
+                    pattern: "{controller=CryptocurrencyTracking}/{action=Login}/{id?}");
             });
             app.UseSwagger();
             app.UseSwaggerUI();

@@ -1,6 +1,8 @@
 ﻿using CryptocurrencyTracking.Models;
+using Flurl.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,13 +19,23 @@ namespace CryptocurrencyTracking.Controllers
         {
             _logger = logger;
         }
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            string url = "https://api.coinranking.com/v2/stats";
+            var responseString = await url.GetAsync().ReceiveJson<StatsModel>();
+            ViewData["BestCoins"] = responseString.data.bestCoins;
+            ViewData["NewestCoins"] = responseString.data.newestCoins;
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Trade()
+        {
+            string url = "https://api.coinranking.com/v2/coins";
+            var responseString = await url.GetAsync().ReceiveJson<CoinModel>();
+            return View(responseString.data.coins);
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
@@ -34,12 +46,21 @@ namespace CryptocurrencyTracking.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpPost]
-        [Route("/api/MockCreatePayment")]
-        public string GetURL()
+        [HttpGet]
+        [Route("/api/coins")]
+        public async Task<JsonResult> GetURL()
         {
-
-            return "";
+            string url = "https://api.coinranking.com/v2/coins";
+            var responseString = await url.GetAsync().ReceiveJson<CoinModel>();
+            return Json(responseString.data.coins);
+        }
+        [HttpGet]
+        [Route("/api/stats")]
+        public async Task<JsonResult> GetS()
+        {
+            string url = "https://api.coinranking.com/v2/stats";
+            var responseString = await url.GetAsync().ReceiveJson<StatsModel>();
+            return Json(responseString.data);
         }
     }
 }
