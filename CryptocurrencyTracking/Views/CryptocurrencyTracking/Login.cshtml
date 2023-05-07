@@ -1,105 +1,99 @@
 ﻿
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CryptocurrencyTracking</title>
+    <title>CryptocurrencyTracking</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <div class="container">
-        <main role="main" class="pb-3">
-            @{
-            ViewData["Title"] = "Login";
-            }
+        <h2 style="text-align:center">Login</h2>
+        <form>
+            <div class="row">
 
-            <div class="container">
-                <h2 style="text-align:center">Login with Social Media or Manually</h2>
-                <form>
-                    <div class="row">
+                <div class="col">
 
-                        <div class="col">
-
-                            <input type="text" id="username" placeholder="Username" required>
-                            <input type="password" id="password" placeholder="Password" required>
-                            <input type="submit" value="Login" onclick="submitOnClick(this.val)">
-                        </div>
-
-                    </div>
-                </form>
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="submit" value="Login" onclick="submitOnClick(this.val)">
+                </div>
             </div>
-
-            <script type="text/javascript">
-                submitOnClick = function (el) {
-
-                    let formData = {
-                        username: $("#username").val(),
-                        password: $("#password").val()
-                    }
-                    var settings = {
-                        "async": true,
-                        "url": '/api/login',
-                        "method": "POST",
-                        "headers": {
-                            "Content-Type": "application/json",
-                            "cache-control": "no-cache"
-                        },
-                        "data": JSON.stringify(formData)
-                    }
-                    $.ajax(settings).done(function (response) {
-                        console.log(response);
-                        if (response) {
-                            alert("คลิ๊ก Ok เพื่อดำเนินการต่อ");
-                            window.location = ("@Url.Action("Index")");
-                    console.log("yyyyyyy");
-                }
-                            else {
-                    alert("9bf9jv");
-                    console.log("nnnnn");
-                }
-                        });
-                    }
-            </script>
-
-            <style>
-
-                input,
-                .btn {
-                    width: 100%;
-                    padding: 12px;
-                    border: none;
-                    border-radius: 4px;
-                    margin: 5px 0;
-                    opacity: 0.85;
-                    display: inline-block;
-                    font-size: 17px;
-                    line-height: 20px;
-                }
-
-                    input[type=submit] {
-                        background-color: #04AA6D;
-                        color: white;
-                        cursor: pointer;
-                    }
-
-                .col {
-                    float: left;
-                    width: 50%;
-                    margin: auto;
-                    padding: 0 50px;
-                    margin-top: 6px;
-                }
-
-                .hide-md-lg {
-                    display: none;
-                }
-            </style>
-        </main>
+        </form>
     </div>
 
+    <style>
+
+        .container {
+            padding: 160px;
+            background-color: white;
+        }
+
+        input,
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            margin: 5px 0;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: 17px;
+            line-height: 20px;
+        }
+
+            input[type=submit] {
+                background-color: #04AA6D;
+                color: white;
+                cursor: pointer;
+            }
+
+        .col {
+            float: left;
+            width: 50%;
+            margin: auto;
+            padding: 0 50px;
+            margin-top: 6px;
+        }
+
+        .hide-md-lg {
+            display: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        submitOnClick = function (el) {
+
+            let formData = {
+                username: $("#username").val(),
+                password: $("#password").val()
+            }
+            var settings = {
+                "async": true,
+                "url": '/api/login',
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "cache-control": "no-cache"
+                },
+                "data": JSON.stringify(formData)
+            }
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                if (response) {
+                    alert("คลิ๊ก Ok เพื่อดำเนินการต่อ");
+                    window.location = ("https://localhost:5001/CryptocurrencyTracking/Index");
+                    console.log("yyyyyyy");
+                }
+                else {
+                    alert("ติดต่อผู้ดูแลระบบ");
+                    console.log("nnnnn");
+                }
+            });
+        }
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
