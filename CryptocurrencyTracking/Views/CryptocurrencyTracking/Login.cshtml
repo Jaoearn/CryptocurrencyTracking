@@ -80,7 +80,7 @@
             $.ajax(settings).done(function (response) {
                 console.log(response);
                 if (response) {
-                    window.location = ("https://localhost:5001/CryptocurrencyTracking/Index");
+                    window.location = ("@Url.Action("Index")");
                 }
                 else {
                     alert("ติดต่อผู้ดูแลระบบ");

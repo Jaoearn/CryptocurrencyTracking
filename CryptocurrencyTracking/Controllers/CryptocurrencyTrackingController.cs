@@ -45,23 +45,6 @@ namespace CryptocurrencyTracking.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        [HttpGet]
-        [Route("/api/coins")]
-        public async Task<JsonResult> GetURL()
-        {
-            string url = "https://api.coinranking.com/v2/coins";
-            var responseString = await url.GetAsync().ReceiveJson<CoinModel>();
-            return Json(responseString.data.coins);
-        }
-        [HttpGet]
-        [Route("/api/stats")]
-        public async Task<JsonResult> GetStats()
-        {
-            string url = "https://api.coinranking.com/v2/stats";
-            var responseString = await url.GetAsync().ReceiveJson<StatsModel>();
-            return Json(responseString.data);
-        }
         [HttpPost]
         [Route("/api/login")]
         public bool LoginForm([FromBody] LoginModel loginModel)
