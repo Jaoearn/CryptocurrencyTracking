@@ -24,26 +24,26 @@ namespace CryptocurrencyTracking.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<CoinModel> coin = new List<CoinModel>();
-            List<SearchModel> testModel = new List<SearchModel>();
-            string json1 = System.IO.File.ReadAllText(path + $"search.json");
-            var Info = JsonConvert.DeserializeObject<List<TestModel>>(json1);
-            if (Info.Count() > 0)
+            List<SearchCoins> coin = new List<SearchCoins>();
+            if (System.IO.File.Exists(path + $"search.json"))
             {
-                for (int i = 0; i < Info.Count; i++)
+                string json1 = System.IO.File.ReadAllText(path + $"search.json");
+                var Info = JsonConvert.DeserializeObject<List<TestModel>>(json1);
+                if (Info.Count() > 0)
                 {
-                    string url1 = "https://api.coinranking.com/v2/coin/" + Info[i].uuid;
-                    var responseString = await url1.GetAsync().ReceiveJson<SearchModel>();
-                    testModel = JsonConvert.DeserializeObject<List<SearchModel>>(json);
-                    testModel.Add(responseString);
-                    var jsondata = JsonConvert.SerializeObject(testModel);
-                    await System.IO.File.WriteAllTextAsync(path + $"response.json", jsondata);
+                    for (int i = 0; i < Info.Count; i++)
+                    {
+                        string url1 = "https://api.coinranking.com/v2/coin/" + Info[i].uuid;
+                        var SearchModel = await url1.GetAsync().ReceiveJson<SearchModel>();
+                        coin.Add(SearchModel.data.coin);
+                    }
                 }
             }
             string url = "https://api.coinranking.com/v2/stats";
             var responseString = await url.GetAsync().ReceiveJson<StatsModel>();
             ViewData["BestCoins"] = responseString.data.bestCoins;
             ViewData["NewestCoins"] = responseString.data.newestCoins;
+            ViewData["SearchCoins"] = coin;
             return View();
         }
 
@@ -72,57 +72,8 @@ namespace CryptocurrencyTracking.Controllers
             else return false;
         }
         [HttpPost]
-        [Route("/api/coin")]
-        public async Task<dynamic> CoinForm([FromBody] UuidModel uuidModel)
-        {
-            string url = "https://api.coinranking.com/v2/coin/" + uuidModel.uuid;
-            var responseString = await url.GetAsync().ReceiveJson<SearchModel>();
-            var jsondata = JsonConvert.SerializeObject(responseString);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            await System.IO.File.WriteAllTextAsync(path + $"{uuidModel.uuid}.json", jsondata);
-
-            return uuidModel.uuid;
-        }
-        [HttpPost]
         [Route("/api/search")]
-        public async Task<dynamic> SearchCoin()
-        {
-            List<SearchModel> testModel = new List<SearchModel>();
-            string json1 = System.IO.File.ReadAllText(path + $"search.json");
-            var Info = JsonConvert.DeserializeObject<List<TestModel>>(json1);
-            if (Info.Count() > 0)
-            {
-                for (int i = 0; i < Info.Count; i++)
-                {
-                    string url = "https://api.coinranking.com/v2/coin/" + Info[i].uuid;
-                    var responseString = await url.GetAsync().ReceiveJson<SearchModel>();
-                    testModel = JsonConvert.DeserializeObject<List<SearchModel>>(json1);
-                    testModel.Add(responseString);
-                    var jsondata = JsonConvert.SerializeObject(testModel);
-                    await System.IO.File.WriteAllTextAsync(path + $"response.json", jsondata);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < Info.Count; i++)
-                {
-                    string url = "https://api.coinranking.com/v2/coin/" + Info[i].uuid;
-                    var responseString = await url.GetAsync().ReceiveJson<SearchModel>();
-                    testModel.Add(responseString);
-                    var jsondata = JsonConvert.SerializeObject(testModel);
-                    await System.IO.File.WriteAllTextAsync(path + $"response.json", jsondata);
-                }
-            }
-
-
-            return "";
-        }
-        [HttpPost]
-        [Route("/api/test")]
-        public async Task<dynamic> Tt([FromBody] UuidModel uuidModel)
+        public async Task<dynamic> SearchCoin([FromBody] UuidModel uuidModel)
         {
             List<TestModel> testModel = new List<TestModel>();
             if (System.IO.File.Exists(path + $"search.json"))
@@ -135,6 +86,10 @@ namespace CryptocurrencyTracking.Controllers
             }
             else
             {
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
                 testModel.Add(new TestModel() { uuid = uuidModel.uuid });
                 var jsondata = JsonConvert.SerializeObject(testModel);
                 await System.IO.File.WriteAllTextAsync(path + $"search.json", jsondata);

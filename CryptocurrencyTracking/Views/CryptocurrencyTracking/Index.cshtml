@@ -39,6 +39,7 @@
 
                 IEnumerable<BestCoins> bestCoins = ViewData["BestCoins"] as IEnumerable<BestCoins>;
                 IEnumerable<NewestCoins> newestCoins = ViewData["NewestCoins"] as IEnumerable<NewestCoins>;
+                IEnumerable<SearchCoins> searchCoins = ViewData["SearchCoins"] as IEnumerable<SearchCoins>;
             }
 
 
@@ -49,6 +50,41 @@
 
             <div class="row">
                 <div class="leftcolumn">
+                    <div class="card">
+                        <div class="wrapper">
+                            <h5>Your favorite coins</h5>
+                            <table class="table">
+                                <tr>
+                                    <td>Name</td>
+                                    <td></td>
+                                    <td>Price</td>
+                                    <td>Change</td>
+                                    <td>Market cap</td>
+                                </tr>
+                                @foreach (SearchCoins searchCoins1 in searchCoins)
+                                {
+                                    <tr class="row-select">
+                                        <td class="iconUrl">
+                                            <img src=@Html.DisplayFor(modelItem => searchCoins1.iconUrl ) width=35 height=35 />
+                                        </td>
+                                        <td class="name">
+                                            <h5><a href=@Html.DisplayFor(modelItem => searchCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => searchCoins1.name)</a></h5>
+                                            <h6><a href=@Html.DisplayFor(modelItem => searchCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => searchCoins1.symbol)</a></h6>
+                                        </td>
+                                        <td class="price">
+                                            <a href=@Html.DisplayFor(modelItem => searchCoins1.coinrankingUrl)>$@Html.DisplayFor(modelItem => searchCoins1.price)</a>
+                                        </td>
+                                        <td class="change">
+                                            <a href=@Html.DisplayFor(modelItem => searchCoins1.coinrankingUrl)>@Html.DisplayFor(modelItem => searchCoins1.change)%</a>
+                                        </td>
+                                        <td class="marketCap">
+                                            <a href=@Html.DisplayFor(modelItem => searchCoins1.coinrankingUrl)>$@Html.DisplayFor(modelItem => searchCoins1.marketCap)</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
                     <div class="card">
                         <a href="https://www.coinbase.com/learn/crypto-basics/what-is-dogecoin?from=for_you">
                             <h2>What is Dogecoin?</h2>
