@@ -77,7 +77,7 @@
                                         </td>
                                         <td>
                                         <label class="add-fav">
-                                            <input type="checkbox" id="addFavourites" value=@Html.DisplayFor(modelItem => item.symbol ) onclick="checkOnClick(this)"/>
+                                            <input type="checkbox" id="addFavourites" value=@Html.DisplayFor(modelItem => item.uuid ) onclick="checkOnClick(this)"/>
                                         </label>
                                         </td>
                                     </tr>
@@ -113,12 +113,25 @@
 
             <script type="text/javascript">
                 checkOnClick = function (el) {
-                console.log($(el).val());
-                let formData = {
-                    symbol: $(el).val()
+                    console.log($(el).val());
+                    let formData = {
+                        uuid: $(el).val()
+                    }
+                    console.log(formData);
+                    var settings = {
+                        "async": true,
+                        "url": '/api/test',
+                        "method": "POST",
+                        "headers": {
+                            "Content-Type": "application/json",
+                            "cache-control": "no-cache"
+                        },
+                        "data": JSON.stringify(formData)
+                    }
+                    $.ajax(settings).done(function (response) {
+                        console.log(response);
+                    });
                 }
-                console.log(formData);
-            }
             </script>
         </main>
     </div>

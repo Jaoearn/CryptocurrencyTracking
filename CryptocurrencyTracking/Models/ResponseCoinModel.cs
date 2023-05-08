@@ -5,24 +5,24 @@ using System.Threading.Tasks;
 
 namespace CryptocurrencyTracking.Models
 {
-    public class CoinModel
+    public class ResponseCoinModel
     {
         public string status { get; set; }
-        public Data data { get; set; }
+        public ResponseCoinData data { get; set; }
     }
-    public class Data
+    public class ResponseCoinData
     {
-        public Status status { get; set; }
-        public Coins[] coins { get; set; }
+        public ResponseCoinStatus status { get; set; }
+        public CoinsResponse coins { get; set; }
     }
-    public class Status
+    public class ResponseCoinStatus
     {
         public int total { get; set; }
         public int totalCoins { get; set; }
         public int totalMarkets { get; set; }
         public int totalExchanges { get; set; }
     }
-    public class Coins
+    public class CoinsResponse
     {
         public string uuid { get; set; }
 

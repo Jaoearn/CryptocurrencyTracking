@@ -5,25 +5,19 @@ using System.Threading.Tasks;
 
 namespace CryptocurrencyTracking.Models
 {
-    public class CoinModel
+    public class SearchModel
     {
         public string status { get; set; }
-        public Data data { get; set; }
+        public SearchData data { get; set; }
     }
-    public class Data
+}
+    public class SearchData
     {
-        public Status status { get; set; }
-        public Coins[] coins { get; set; }
+        public SearchCoins coin { get; set; }
     }
-    public class Status
-    {
-        public int total { get; set; }
-        public int totalCoins { get; set; }
-        public int totalMarkets { get; set; }
-        public int totalExchanges { get; set; }
-    }
-    public class Coins
-    {
+
+    public class SearchCoins
+{
         public string uuid { get; set; }
 
         public string symbol { get; set; }
@@ -34,5 +28,4 @@ namespace CryptocurrencyTracking.Models
         public string change { get; set; }
         public string coinrankingUrl { get; set; }
         public string btcPrice { get; set; }
-    }
 }
